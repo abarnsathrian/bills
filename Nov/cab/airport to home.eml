@@ -1,0 +1,909 @@
+Delivered-To: rs.sabarinathan22@gmail.com
+Received: by 2002:ac8:65c4:0:b0:4ed:6fbc:62d6 with SMTP id t4csp1957079qto;
+        Fri, 14 Nov 2025 11:18:04 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHGSrjgji6cp7lk+HSwk8vJbQ5NL4/PTRYPXxeY34m/F1G8RcYne1kaSAA/idd+2kVjNPAi
+X-Received: by 2002:a53:d008:0:b0:63f:4b71:18d9 with SMTP id 956f58d0204a3-641e76f3ec9mr3418377d50.69.1763147884110;
+        Fri, 14 Nov 2025 11:18:04 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1763147884; cv=none;
+        d=google.com; s=arc-20240605;
+        b=K6UEqVW1PTnH7i0bj7gOe0IYtUWuPci5dA8dxQOpBBCv8GpY/VdlELJEleftykp9Hx
+         mGaXvtbmEpFqSB7lmRkeoSAScn3nd+l01YUy99lyRz3R3DR2AAXXf0/+LGqDd37VQeb8
+         sprXsqGGrXAxd19Xiz+NISbJd2YVZmkJMc2vVUVtuB2eYVyRsc6K1UqFP/Yv/hvQ2o0y
+         XQo4nO2o8nOZEvEB8EI6uMMps5QIYJYLHqXvscxCNVUDN2dm+v2zgKUwQ1GC9mR1q6ah
+         UkuYg51uh0pjAawsUD10zY3ACkWkryZi/KvJGj7kvKA4RWx2bDR5vZ0wHvnCr1vpaEZk
+         fhuA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=reply-to:message-id:from:subject:to:mime-version:date
+         :content-transfer-encoding:dkim-signature;
+        bh=pGk/Tt+OrAr4VY0C9ifb77Kmpmr+QAGl+xLGuR/SAus=;
+        fh=z718VNZCXUy4Gpk7xRrddRTZTd+tVgAKO3HYmrR5Iwo=;
+        b=Gs3aiXkThdjI3pqtk/wYS8FIq4b7DXDKJ6jn5v8gowh//xXd29vbz5zr6ibTMcve+Z
+         w5g5FweHd0So1toik4eZITaI3jf3n/QXAJS3hqNkbTTRjg6HK+uEBpNqSyiHE2ah4E5S
+         wTEoDfpSZs8G/8znm1gH/zk67jPW23sxPwkl2O1q3W0IIrsFRYlqbd8lCJj4YlxJVDO3
+         OQ7nbMJ1fQlqy0H+cYmTK7TAFzTtu5MctJD5PRhrPvXbTfRBQUG4y1HI3oSuStvWUPu5
+         Q+8hoY0ARIFcNBOtpq4raElcCioHhheP9itoOuwRDAy5SS1wh9Co4RpwzhgTg5S8lsOl
+         webQ==;
+        dara=google.com
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@sptrans.uber.com header.s=scph header.b=Z2g9Wyjf;
+       spf=pass (google.com: domain of bounce@sptrans.uber.com designates 156.70.13.237 as permitted sender) smtp.mailfrom=bounce@sptrans.uber.com;
+       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=uber.com
+Return-Path: <bounce@sptrans.uber.com>
+Received: from mta-70-13-237.uber.com.sparkpostmail.com (mta-70-13-237.uber.com.sparkpostmail.com. [156.70.13.237])
+        by mx.google.com with ESMTPS id 00721157ae682-788221c7a5bsi25130407b3.767.2025.11.14.11.18.03
+        for <rs.sabarinathan22@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Fri, 14 Nov 2025 11:18:04 -0800 (PST)
+Received-SPF: pass (google.com: domain of bounce@sptrans.uber.com designates 156.70.13.237 as permitted sender) client-ip=156.70.13.237;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@sptrans.uber.com header.s=scph header.b=Z2g9Wyjf;
+       spf=pass (google.com: domain of bounce@sptrans.uber.com designates 156.70.13.237 as permitted sender) smtp.mailfrom=bounce@sptrans.uber.com;
+       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=uber.com
+X-MSFBL: 7+49PfKNRQ9iDO9ZiZxIHDngDOKKBqvL/rqURbubNyE=|eyJ0ZW5hbnRfaWQiOiJ
+	1YmVyIiwiciI6InJzLnNhYmFyaW5hdGhhbjIyQGdtYWlsLmNvbSIsInN1YmFjY29
+	1bnRfaWQiOiIwIiwiY3VzdG9tZXJfaWQiOiIxIiwibWVzc2FnZV9pZCI6IjY5MTc
+	2YTgwMTc2OTUxNGQwOGYyIn0=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sptrans.uber.com;
+	s=scph; t=1763147882; i=@sptrans.uber.com;
+	bh=pGk/Tt+OrAr4VY0C9ifb77Kmpmr+QAGl+xLGuR/SAus=;
+	h=Content-Type:Date:To:Subject:From:Message-Id:From:To:Cc:Subject;
+	b=Z2g9WyjfVmoEwWMxtErJTb2/1n2xJ82BfiuGSCvkdZq5ya4Jd08mRrPWDN/FNw7ex
+	 NBsw1FHDMfgvOu/30e0eMhqI9yZsgQg42atrxwzqqBTbWV2XALUPDYWY8DtjvejVa8
+	 Z/NQHl0ELYhD57vQdpnwIf7h1lST++igXUAAWBgk=
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset="utf-8"
+Authentication-Results:  i-0715b1cb8556c71c9.mta2vsmtp.sd.prd.sparkpost smtp.user=<hidden>; auth=pass (PLAIN)
+Received: from [43.231.14.12] ([43.231.14.12:58277] helo=localhost)
+	by i-0715b1cb8556c71c9.mta2vsmtp.sd.prd.sparkpost (envelope-from <bounce@sptrans.uber.com>)
+	(ecelerity 5.1.0.74691 r(msys-ecelerity:tags/5.1.0.19)) with ESMTPSA (cipher=AES-128-GCM) 
+	id 2F/80-48495-A6087196; Fri, 14 Nov 2025 19:18:02 +0000
+Date: Fri, 14 Nov 2025 19:18:02 +0000
+MIME-Version: 1.0
+To: <rs.sabarinathan22@gmail.com>
+Subject: Your Saturday morning trip with Uber
+X-Uber-Id: 5878aaa5-4d7c-563f-b914-c1cc631f6c1e
+From: "Uber Receipts" <noreply@uber.com>
+Message-Id: <5878aaa5-4d7c-563f-b914-c1cc631f6c1e@mail.uber.com>
+Reply-To: <no-reply@replies.uber.com>
+
+<!doctype html><html xmlns=3D"http://www.w3.org/1999/xhtml" xmlns:v=3D"urn:=
+schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-microsoft-com:office:offi=
+ce"><head><title></title><meta http-equiv=3D"x-ua-compatible" content=3D"IE=
+=3Dedge"><meta charset=3D"utf-8"><meta name=3D"viewport" content=3D"width=
+=3Ddevice-width,initial-scale=3D1"><meta name=3D"color-scheme" content=3D"l=
+ight dark"><meta name=3D"supported-color-schemes" content=3D"light dark onl=
+y"><style type=3D"text/css">body{margin:0;padding:0;-webkit-text-size-adjus=
+t:100%;-ms-text-size-adjust:100%}table,td{border-collapse:collapse;mso-tabl=
+e-lspace:0;mso-table-rspace:0}@font-face{font-family:ubermovelight;src:url(=
+https://d1a3f4spazzrp4.cloudfront.net/emails/2019/global/fonts/UberMove-Lig=
+ht.woff2)format("woff2"),url(https://d1a3f4spazzrp4.cloudfront.net/emails/2=
+019/global/fonts/UberMove-Light.woff)format("woff");font-weight:400!importa=
+nt;font-style:normal!important;mso-font-alt:"Arial"}@font-face{font-family:=
+ubermoveregular;src:url(https://d1a3f4spazzrp4.cloudfront.net/emails/2019/g=
+lobal/fonts/UberMove-Regular.woff2)format("woff2"),url(https://d1a3f4spazzr=
+p4.cloudfront.net/emails/2019/global/fonts/UberMove-Regular.woff)format("wo=
+ff");font-weight:400!important;font-style:normal!important;mso-font-alt:"Ar=
+ial"}@font-face{font-family:ubermovemedium;src:url(https://d1a3f4spazzrp4.c=
+loudfront.net/emails/2019/global/fonts/UberMove-Medium.woff2)format("woff2"=
+),url(https://d1a3f4spazzrp4.cloudfront.net/emails/2019/global/fonts/UberMo=
+ve-Medium.woff)format("woff");font-weight:400!important;font-style:normal!i=
+mportant;mso-font-alt:"Arial"}@font-face{font-family:ubermovebold;src:url(h=
+ttps://d1a3f4spazzrp4.cloudfront.net/emails/2019/global/fonts/UberMove-Bold=
+=2Ewoff2)format("woff2"),url(https://d1a3f4spazzrp4.cloudfront.net/emails/2=
+019/global/fonts/UberMove-Bold.woff)format("woff");font-weight:400!importan=
+t;font-style:normal!important;mso-font-alt:"Arial"}@font-face{font-family:u=
+bermovetextlight;src:url(https://d1a3f4spazzrp4.cloudfront.net/emails/2019/=
+global/fonts/UberMoveText-Light.woff2)format("woff2"),url(https://d1a3f4spa=
+zzrp4.cloudfront.net/emails/2019/global/fonts/UberMoveText-Light.woff)forma=
+t("woff");font-weight:400!important;font-style:normal!important;mso-font-al=
+t:"Arial"}@font-face{font-family:ubermovetextregular;src:url(https://d1a3f4=
+spazzrp4.cloudfront.net/emails/2019/global/fonts/UberMoveText-Regular.woff2=
+)format("woff2"),url(https://d1a3f4spazzrp4.cloudfront.net/emails/2019/glob=
+al/fonts/UberMoveText-Regular.woff)format("woff");font-weight:400!important=
+;font-style:normal!important;mso-font-alt:"Arial"}@font-face{font-family:ub=
+ermovetextmedium;src:url(https://d1a3f4spazzrp4.cloudfront.net/emails/2019/=
+global/fonts/UberMoveText-Medium.woff2)format("woff2"),url(https://d1a3f4sp=
+azzrp4.cloudfront.net/emails/2019/global/fonts/UberMoveText-Medium.woff)for=
+mat("woff");font-weight:400!important;font-style:normal!important;mso-font-=
+alt:"Arial"}@font-face{font-family:ubermovetextbold;src:url(https://d1a3f4s=
+pazzrp4.cloudfront.net/emails/2019/global/fonts/UberMoveText-Bold.woff2)for=
+mat("woff2"),url(https://d1a3f4spazzrp4.cloudfront.net/emails/2019/global/f=
+onts/UberMoveText-Bold.woff)format("woff");font-weight:400!important;font-s=
+tyle:normal!important;mso-font-alt:"Arial"}*{font-family:ubermovetextregula=
+r,Arial,sans-serif;margin-inline:0;margin-block:0;padding-inline:0;padding-=
+block:0}nobr{all:unset;display:inline;color:inherit;white-space:nowrap}</st=
+yle><style type=3D"text/css">.notification{background:#eff4fe;background-co=
+lor:#eff4fe}.notification a{color:#000}.notification.info{background:#eff4f=
+e;background-color:#eff4fe}.notification.positive{background:#eaf6ed;backgr=
+ound-color:#eaf6ed}.notification.warning{background:#fdf2dc;background-colo=
+r:#fdf2dc}.notification.negative{background:#fff0ee;background-color:#fff0e=
+e}.body-root{background:#fff;background-color:#fff;color:#000}.total-fare-w=
+rapper .total-fare-content.arrear .total-fare-amount{color:#de1135}.img-dar=
+k{display:none}.disclaimer-text a{color:#000!important;font-weight:700!impo=
+rtant}.disclaimer-action{text-align:right}.disclaimer-action a{color:#000!i=
+mportant;font-family:UberMoveTextMedium,Arial,sans-serif;font-weight:500!im=
+portant;font-size:14px!important;font-size:.875rem!important;line-height:20=
+px!important;line-height:1.25rem!important}.additional-info-value a{color:#=
+000!important;font-family:UberMoveTextMedium,Arial,sans-serif;font-weight:5=
+00!important;font-size:16px!important;font-size:1rem!important;line-height:=
+20px!important;line-height:1.25rem!important}.footer .mobile-content a{text=
+-decoration:none}.footer,.footer a{color:#fff!important}.footer a{font-fami=
+ly:UberMoveTextMedium,Arial,sans-serif;font-weight:500!important;font-size:=
+14px!important;line-height:20px!important;font-size:.875rem!important;line-=
+height:1.25rem!important}.action-panel .action-panel-button,.action-panel .=
+action-panel-button a{color:#000!important}.mobile-content .hidden{display:=
+none!important}.benefit-box{padding-bottom:16px}.benefit-box table:nth-of-t=
+ype(1){border-collapse:separate}.action-panel-title{vertical-align:top}.sc_=
+item_quantity{background-color:#e8e8e8;color:#000}.sc_item_title,.sc_item_p=
+rice{color:#000}.sc_item_sub_text{color:#707070!important}.ad-container{mar=
+gin-bottom:14px}</style><style type=3D"text/css" data-style-type=3D"dark">@=
+media(prefers-color-scheme:dark){.img-dark{display:block!important}.img-lig=
+ht{display:none!important}.header,.header-table-row{background:#292929!impo=
+rtant;background-color:#292929!important;color:#fff!important}.header .date=
+{color:#ddd!important}.body-root{background:#161616!important;background-co=
+lor:#161616!important;color:#fff!important}.notification{color:#fff!importa=
+nt;background:#eff4fe!important;background-color:#eff4fe!important}.notific=
+ation a{color:#fff!important}.notification.info{background:#182946!importan=
+t;background-color:#182946!important}.notification.positive{background:#162=
+f1e!important;background-color:#162f1e!important}.notification.warning{back=
+ground:#39240a!important;background-color:#39240a!important}.notification.n=
+egative{background:#4a1216!important;background-color:#4a1216!important}.no=
+tification-button{background:#22375c!important;background-color:#22375c!imp=
+ortant;color:#dedede!important}.total-fare-wrapper .total-fare-content.arre=
+ar .total-fare-amount{color:#de5b5d!important}.divider-wrapper .divider-lin=
+e{background-color:#292929!important;background:#292929!important}.footer .=
+divider-line{background-color:#383838!important;background:#383838!importan=
+t}.footer,.footer a{color:#d1d1d1!important}.payment-item .payment-meta-tex=
+t{color:#ababab!important}.disclaimer-action a,.additional-info-value a{col=
+or:#fff!important;white-space:nowrap}.action-panel{border-color:#292929!imp=
+ortant}.action-panel .action-panel-button{background:#383838!important;back=
+ground-color:#383838!important;color:#dedede!important}.action-panel .actio=
+n-panel-button a{color:#dedede!important}.pickup-icon-2{background:#dedede!=
+important}.dropoff-icon-2{background-color:initial!important}.vehicle-detai=
+l-col{border-bottom:1px solid #292929!important}.vehicle-detail-label,.addr=
+ess-point-label,.disclaimer-heading,.benefit-text{color:#dedede!important}.=
+vehicle-detail-desc,.disclaimer-text,.disclaimer-text a{color:#ababab!impor=
+tant}.address-point-desc{color:#8c8c8c!important}.benefit-box-table{backgro=
+und:#292929!important;background-color:#292929!important;border-color:#2929=
+29!important}.sc_item_quantity{background-color:#383838!important;color:#ff=
+f!important}.sc_item_title,.sc_item_price{color:#fff!important}.sc_item_sub=
+_text{color:#c4c4c4!important}}</style><style type=3D"text/css">@media only=
+ screen and (max-width:699px){.header-table-cell{padding-right:5px!importan=
+t;padding-left:5px!important}.header-table-cell-with-text{padding-right:20p=
+x!important;padding-left:20px!important}.desktop-content{display:none!impor=
+tant}.mobile-content{display:block!important}.mobile-content .hidden{displa=
+y:table-cell!important}.mobile-table{display:table!important}.mobile-column=
+{width:100%!important}.body-content{padding-top:24px!important;padding-righ=
+t:24px!important;padding-bottom:32px!important;padding-left:24px!important}=
+=2Efooter-table-cell{padding-right:24px!important;padding-left:24px!importa=
+nt}.footer .entity-info{width:75%!important}.footer a{font-size:16px!import=
+ant;line-height:20px!important;font-size:1rem!important;line-height:1.25rem=
+!important}.mobile-content .address-point-desc{padding-bottom:24px}.benefit=
+-container,.benefit-box{display:block;width:100%}.benefit-spacer{height:0!i=
+mportant}.membershipLogo-container{padding-left:11px!important}.notificatio=
+n-button{width:auto!important}}</style></head><body style=3D"background-col=
+or:#d6d6d5"><table width=3D"100%" border=3D"0" cellpadding=3D"0" cellspacin=
+g=3D"0" style=3D"border:none;border-collapse:collapse;border-spacing:0;mso-=
+table-lspace:0;mso-table-rspace:0;width:100%"><tr><td></td><td align=3D"cen=
+ter" width=3D"700"><table class=3D"receipt" align=3D"center" border=3D"0" c=
+ellpadding=3D"0" cellspacing=3D"0" role=3D"presentation" style=3D"width:100=
+%;max-width:700px;font-size:16px"><tbody><tr><td><div><div class=3D"header =
+mj-outlook-group-fix" style=3D"background:#e8e8e8;background-color:#e8e8e8"=
+ dir=3D"ltr"><table class=3D"header-table-row" align=3D"center" border=3D"0=
+" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentation" style=3D"backgr=
+ound:#e8e8e8;background-color:#e8e8e8;width:100%;table-layout:fixed"><tbody=
+><tr><td class=3D"header-table-cell" style=3D"width:70%;vertical-align:midd=
+le;padding-left:48px;padding-right:0;padding-bottom:32px;padding-top:32px" =
+class=3D"mobile-column"><table border=3D"0" cellpadding=3D"0" cellspacing=
+=3D"0" role=3D"presentation"><tbody><tr><td><img src=3D"https://tb-static.u=
+ber.com/prod/receipts/cdn/receipts-v4/uber-logo.png" width=3D"94" height=3D=
+"44"></td></tr></tbody></table></td><td class=3D"desktop-content header-tab=
+le-cell-with-text" style=3D"width:30%;padding-left:0;padding-right:63px;pad=
+ding-bottom:0;padding-top:32px;font-family:UberMoveTextMedium,Arial,sans-se=
+rif;font-size:12px;line-height:16px;font-size:.75rem;line-height:1rem;text-=
+align:right;font-weight:500;vertical-align:top;color:#4b4b4b" align=3D"righ=
+t"><div class=3D"date">Nov 14, 2025</div><div class=3D"date">11:57 pm</div>=
+</td></tr></tbody></table><table class=3D"header-table-row" align=3D"center=
+" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentation" st=
+yle=3D"background:#e8e8e8;background-color:#e8e8e8;width:100%;table-layout:=
+fixed"><tbody><tr><td class=3D"header-table-cell-with-text" style=3D"paddin=
+g-top:8px;padding-left:63px"></td></tr><tr style=3D"display:none" class=3D"=
+mobile-content"><td class=3D"mobile-column header-table-cell-with-text" sty=
+le=3D"width:65%;padding-left:48px;padding-right:0;padding-bottom:16px;paddi=
+ng-top:0;font-size:14px;line-height:16px;font-size:.875rem;line-height:1rem=
+;font-family:UberMoveTextMedium,Arial,sans-serif;padding-left:15px;padding-=
+top:10px;font-weight:500"><div class=3D"date">Nov 14, 2025 , 11:57 pm</div>=
+</td></tr><tr><td><table width=3D"100%" border=3D"0" cellpadding=3D"0" cell=
+spacing=3D"0" role=3D"presentation"><tbody><tr><td class=3D"header-table-ce=
+ll-with-text" style=3D"width:70%;padding-left:63px;padding-right:16px;paddi=
+ng-bottom:32px" class=3D"mobile-column"><div class=3D"headerMessage" style=
+=3D"font-size:44px;font-size:2.75rem;line-height:52px;line-height:3.25rem;f=
+ont-family:UberMoveBold,Arial,sans-serif;font-weight:700;word-wrap:break-wo=
+rd">Thanks for riding, Sabari</div><br><div style=3D"font-size:18px;font-si=
+ze:1.125rem;line-height:28px;line-height:1.75rem;font-family:UberMoveTextRe=
+gular,Arial,sans-serif;font-weight:400">We hope you enjoyed your ride this =
+morning.</div></td><td class=3D"desktop-content header-table-cell" style=3D=
+"width:30%;text-align:right;padding-left:0;padding-right:48px;padding-botto=
+m:32px" align=3D"right"><img src=3D"https://tb-static.uber.com/prod/receipt=
+s/cdn/receipts-v4/uber_rides.png" height=3D"162" style=3D"height:160px;heig=
+ht:10rem"></td></tr></tbody></table></td></tr></tbody></table></div><div cl=
+ass=3D"body-wrapper mj-outlook-group-fix"><table class=3D"body-root" align=
+=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presen=
+tation" style=3D"background:#fff;background-color:#fff;width:100%"><tbody><=
+tr><td class=3D"body-content" style=3D"width:100%;vertical-align:middle;pad=
+ding-left:64px;padding-right:64px;padding-bottom:32px;padding-top:32px"><di=
+v class=3D"total-fare-wrapper mj-outlook-group-fix"><table dir=3D"ltr" clas=
+s=3D"total-fare-content received" align=3D"center" border=3D"0" cellpadding=
+=3D"0" cellspacing=3D"0" role=3D"presentation"><tbody><tr><td data-testid=
+=3D"total_fare_title" class=3D"total-fare-title" style=3D"width:100%;font-f=
+amily:UberMoveBold,Arial,sans-serif;font-weight:700;font-size:32px;line-hei=
+ght:40px;font-size:2rem;line-height:2.5rem">Total</td><td data-testid=3D"to=
+tal_fare_amount" class=3D"total-fare-amount" style=3D"font-family:UberMoveB=
+old,Arial,sans-serif;font-weight:700;font-size:32px;line-height:40px;font-s=
+ize:2rem;line-height:2.5rem">=E2=82=B9543.65</td></tr></tbody></table><tabl=
+e align=3D"right" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"=
+presentation" style=3D"width:100%"><tr><td data-testid=3D"additional_fare" =
+class=3D"total-fare-additional" align=3D"right" style=3D"font-weight:400;fo=
+nt-size:14px;line-height:20px;font-size:.875rem;line-height:1.25rem;color:#=
+4b4b4b">Estimated fare: =E2=82=B9489.98</td></tr></table></div><div class=
+=3D"divider-wrapper mj-outlook-group-fix"><table border=3D"0" cellpadding=
+=3D"0" cellspacing=3D"0" width=3D"100%" style=3D"border:none;border-collaps=
+e:collapse;border-spacing:0;mso-table-lspace:0;mso-table-rspace:0;width:100=
+%"><tbody><tr><td style=3D"padding-top:24px;padding-bottom:16px"><table bor=
+der=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" align=3D"left"=
+ style=3D"border:none;border-collapse:collapse;border-spacing:0;mso-table-l=
+space:0;mso-table-rspace:0;table-layout:fixed;width:100%"><tbody><tr><td cl=
+ass=3D"divider-line" valign=3D"top" align=3D"left" style=3D"font-size:1px;l=
+ine-height:1px;background-color:#f3f3f3">&nbsp;</td></tr></tbody></table></=
+td></tr></tbody></table></div><div class=3D"notification-wrapper mj-outlook=
+-group-fix"><table class=3D"notification warning" align=3D"center" border=
+=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentation" style=3D"w=
+idth:100%;border:2px solid transparent;border-radius:8px;font-family:UberMo=
+veTextMedium,Arial,sans-serif;margin-bottom:16px"><tbody><tr><td class=3D"n=
+otification-content" dir=3D"ltr" style=3D"width:100%;vertical-align:middle;=
+padding-top:16px;padding-right:16px;padding-bottom:16px;padding-left:16px">=
+<table width=3D"100%" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=
+=3D"presentation"><tr><td width=3D"40" height=3D"40"><table align=3D"center=
+" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentation"><t=
+r><td style=3D"padding-right:16px;line-height:0"><img src=3D"https://tb-sta=
+tic.uber.com/prod/receipts/cdn/receipts-v4/notification-warning.png" width=
+=3D"40" height=3D"40"></td></tr></table></td><td style=3D"padding-right:10p=
+x"><table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presenta=
+tion"><tr><td style=3D"font-family:UberMoveTextRegular,Arial,sans-serif;fon=
+t-size:16px;line-height:20px;font-size:1rem;line-height:1.5rem;font-weight:=
+400"><div data-testid=3D"notification_0_text">Your trip fare was higher tha=
+n estimated because the trip duration and distance were longer than expecte=
+d.</div></td></tr></table></td></tr></table></td></tr></tbody></table></div=
+><div class=3D"fare-info-wrapper"><div class=3D"fare-breakdown-wrapper mj-o=
+utlook-group-fix"><table dir=3D"ltr" class=3D"fare-breakdown-item" border=
+=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentation" width=3D"1=
+00%" style=3D"border:none;border-collapse:collapse;border-spacing:0;mso-tab=
+le-lspace:0;mso-table-rspace:0;width:100%"><tr><td data-testid=3D"fare_line=
+_item_label_trip_charge" class=3D"fare-breakdown-name" valign=3D"top" align=
+=3D"left" style=3D"font-family:UberMoveTextMedium,Arial,sans-serif;font-wei=
+ght:500;font-size:16px;line-height:20px;font-size:1rem;line-height:1.25rem;=
+padding-bottom:15px;padding-right:12px;padding-top:15px;direction:ltr;text-=
+align:left">Trip charge</td><td data-testid=3D"fare_line_item_amount_trip_c=
+harge" class=3D"fare-breakdown-amount" valign=3D"top" align=3D"right" style=
+=3D"color:inherit;font-family:UberMoveTextMedium,Arial,sans-serif;font-weig=
+ht:500;font-size:16px;line-height:20px;font-size:1rem;line-height:1.25rem;p=
+adding-bottom:15px;padding-top:15px;text-align:right;white-space:nowrap;dir=
+ection:ltr">=E2=82=B9383.45</td></tr></table></div><div class=3D"fare-break=
+down-wrapper mj-outlook-group-fix"><table dir=3D"ltr" class=3D"fare-breakdo=
+wn-item" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentat=
+ion" width=3D"100%" style=3D"border:none;border-collapse:collapse;border-sp=
+acing:0;mso-table-lspace:0;mso-table-rspace:0;width:100%"><tr><td data-test=
+id=3D"fare_line_item_label_fare_adjustment" class=3D"fare-breakdown-name" v=
+align=3D"top" align=3D"left" style=3D"font-family:UberMoveTextMedium,Arial,=
+sans-serif;font-weight:500;font-size:16px;line-height:20px;font-size:1rem;l=
+ine-height:1.25rem;padding-bottom:15px;padding-right:12px;padding-top:15px;=
+direction:ltr;text-align:left">Fare Adjustment</td><td data-testid=3D"fare_=
+line_item_amount_fare_adjustment" class=3D"fare-breakdown-amount" valign=3D=
+"top" align=3D"right" style=3D"color:inherit;font-family:UberMoveTextMedium=
+,Arial,sans-serif;font-weight:500;font-size:16px;line-height:20px;font-size=
+:1rem;line-height:1.25rem;padding-bottom:15px;padding-top:15px;text-align:r=
+ight;white-space:nowrap;direction:ltr">=E2=82=B945.22</td></tr></table><tab=
+le dir=3D"ltr" class=3D"fare-breakdown-item" border=3D"0" cellpadding=3D"0"=
+ cellspacing=3D"0" role=3D"presentation" width=3D"100%" style=3D"border:non=
+e;border-collapse:collapse;border-spacing:0;mso-table-lspace:0;mso-table-rs=
+pace:0;width:100%"><tr><td data-testid=3D"fare_line_item_label_paid_to_airp=
+ort" class=3D"fare-breakdown-name" valign=3D"top" align=3D"left" style=3D"f=
+ont-family:UberMoveTextMedium,Arial,sans-serif;font-weight:500;font-size:16=
+px;line-height:20px;font-size:1rem;line-height:1.25rem;padding-bottom:15px;=
+padding-right:12px;padding-top:15px;direction:ltr;text-align:left">Paid to =
+airport</td><td data-testid=3D"fare_line_item_amount_paid_to_airport" class=
+=3D"fare-breakdown-amount" valign=3D"top" align=3D"right" style=3D"color:in=
+herit;font-family:UberMoveTextMedium,Arial,sans-serif;font-weight:500;font-=
+size:16px;line-height:20px;font-size:1rem;line-height:1.25rem;padding-botto=
+m:15px;padding-top:15px;text-align:right;white-space:nowrap;direction:ltr">=
+=E2=82=B9160.20</td></tr></table><table dir=3D"ltr" class=3D"fare-breakdown=
+-item" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentatio=
+n" width=3D"100%" style=3D"border:none;border-collapse:collapse;border-spac=
+ing:0;mso-table-lspace:0;mso-table-rspace:0;width:100%"><tr><td data-testid=
+=3D"fare_line_item_label_rider_promotion" class=3D"fare-breakdown-name" val=
+ign=3D"top" align=3D"left" style=3D"font-family:UberMoveTextMedium,Arial,sa=
+ns-serif;font-weight:500;font-size:16px;line-height:20px;font-size:1rem;lin=
+e-height:1.25rem;padding-bottom:15px;padding-right:12px;padding-top:15px;di=
+rection:ltr;text-align:left">Rider Promotion</td><td data-testid=3D"fare_li=
+ne_item_amount_rider_promotion" class=3D"fare-breakdown-amount fare-breakdo=
+wn-negative" valign=3D"top" align=3D"right" style=3D"color:#080;font-family=
+:UberMoveTextMedium,Arial,sans-serif;font-weight:500;font-size:16px;line-he=
+ight:20px;font-size:1rem;line-height:1.25rem;padding-bottom:15px;padding-to=
+p:15px;text-align:right;white-space:nowrap;direction:ltr">-=E2=82=B945.22</=
+td></tr></table></div><div class=3D"divider-wrapper mj-outlook-group-fix"><=
+table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" style=
+=3D"border:none;border-collapse:collapse;border-spacing:0;mso-table-lspace:=
+0;mso-table-rspace:0;width:100%"><tbody><tr><td style=3D"padding-top:0;padd=
+ing-bottom:16px"><table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" wi=
+dth=3D"100%" align=3D"left" style=3D"border:none;border-collapse:collapse;b=
+order-spacing:0;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;wi=
+dth:100%"><tbody><tr><td class=3D"divider-line" valign=3D"top" align=3D"lef=
+t" style=3D"font-size:1px;line-height:1px;background-color:#f3f3f3">&nbsp;<=
+/td></tr></tbody></table></td></tr></tbody></table></div></div><div class=
+=3D"panel-wrapper mj-outlook-group-fix"><table class=3D"panel-content" alig=
+n=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"prese=
+ntation" width=3D"100%"><tbody><tr><td class=3D"panel-title" style=3D"width=
+:100%;font-family:UberMoveBold,Arial,sans-serif;font-weight:700;font-size:2=
+4px;line-height:32px;font-size:1.5rem;line-height:2rem;padding-top:16px;pad=
+ding-bottom:8px">Payments</td></tr><tr><td class=3D"panel-content" style=3D=
+"width:100%"><div class=3D"payments-wrapper mj-outlook-group-fix"><table cl=
+ass=3D"payments-content" align=3D"center" border=3D"0" cellpadding=3D"0" ce=
+llspacing=3D"0" role=3D"presentation" width=3D"100%"><tbody><tr><td dir=3D"=
+ltr" class=3D"payment-item" style=3D"padding:12px 0"><table align=3D"center=
+" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentation" wi=
+dth=3D"100%"><tbody><tr><td style=3D"text-align:left" width=3D"55"><img src=
+=3D"https://tb-static.uber.com/prod/wallet/icons/cash_3x.png" width=3D"35" =
+height=3D"32" border=3D"0" style=3D"display:inline-block;padding-right:18px=
+;vertical-align:middle;width:32px;height:32px;max-width:100%"></td><td><tab=
+le border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentation" w=
+idth=3D"100%"><tbody><tr><td><table border=3D"0" cellpadding=3D"0" cellspac=
+ing=3D"0" role=3D"presentation" width=3D"100%"><tbody><tr><td data-testid=
+=3D"payments_0_Card.String" style=3D"text-align:left;font-family:UberMoveTe=
+xtMedium,Arial,sans-serif;font-weight:500;font-size:16px;line-height:20px;f=
+ont-size:1rem;line-height:1.25rem" align=3D"left">Cash</td><td data_testid=
+=3D"payments_0_AmountCharged" style=3D"text-align:right;vertical-align:midd=
+le" align=3D"right"><font style=3D"font-family: UberMoveTextMedium, Arial, =
+sans-serif;font-weight: 500;font-size:16px;font-size:1rem;text-align: right=
+; direction: ltr; vertical-align: middle; white-space: nowrap;">=E2=82=B954=
+3.65</font></td></tr></tbody></table></td></tr><tr><td><table border=3D"0" =
+cellpadding=3D"0" cellspacing=3D"0" role=3D"presentation" width=3D"100%"><t=
+body><tr><td data-testid=3D"payments_0_date_time" class=3D"payment-meta-tex=
+t" style=3D"text-align:left;font-family:UberMoveTextRegular,Arial,sans-seri=
+f;font-weight:400;font-size:14px;line-height:20px;font-size:.875rem;line-he=
+ight:1.25rem;color:#4b4b4b" align=3D"left">11/15/25 12:47 am</td><td data-t=
+estid=3D"payments_0_Info" class=3D"payment-meta-text" style=3D"text-align:r=
+ight;font-family:UberMoveTextRegular,Arial,sans-serif;font-weight:400;font-=
+size:14px;line-height:20px;font-size:.875rem;line-height:1.25rem;color:#4b4=
+b4b" align=3D"right"></td></tr></tbody></table></td></tr></tbody></table></=
+td></tr></tbody></table></td></tr></tbody></table></div><div class=3D"divid=
+er-wrapper mj-outlook-group-fix"><table border=3D"0" cellpadding=3D"0" cell=
+spacing=3D"0" width=3D"100%" style=3D"border:none;border-collapse:collapse;=
+border-spacing:0;mso-table-lspace:0;mso-table-rspace:0;width:100%"><tbody><=
+tr><td style=3D"padding-top:0;padding-bottom:8px"><table border=3D"0" cellp=
+adding=3D"0" cellspacing=3D"0" width=3D"100%" align=3D"left" style=3D"borde=
+r:none;border-collapse:collapse;border-spacing:0;mso-table-lspace:0;mso-tab=
+le-rspace:0;table-layout:fixed;width:100%"><tbody><tr><td class=3D"divider-=
+line" valign=3D"top" align=3D"left" style=3D"font-size:1px;line-height:1px;=
+background-color:#f3f3f3">&nbsp;</td></tr></tbody></table></td></tr></tbody=
+></table></div></td></tr></tbody></table></div><div class=3D"disclaimers-wr=
+apper mj-outlook-group-fix"><table dir=3D"ltr" class=3D"disclaimers-list-it=
+em" align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=
+=3D"presentation" width=3D"100%" style=3D"border:none;border-collapse:colla=
+pse;border-spacing:0;mso-table-lspace:0;mso-table-rspace:0;width:100%"><tbo=
+dy><tr><td class=3D"disclaimer-text" width=3D" 62% " style=3D"width:62%;fon=
+t-family:UberMoveTextRegular,Arial,sans-serif;font-weight:400;font-size:14p=
+x;line-height:20px;font-size:.875rem;line-height:1.25rem;color:#4b4b4b;bord=
+er:none">Download the receipt in a PDF format</td><td class=3D"disclaimer-b=
+utton" width=3D" 38% " style=3D"width:38%;background:#f3f3f3;background-col=
+or:#f3f3f3;border-radius:9999px;border-collapse:separate;padding:10px" alig=
+n=3D"center"><a href=3D"https://click.uber.com/f/a/c13YVQJGDuofOB16CanqYA~~=
+/AAAAARA~/hXnabr6_N_YO187HKabY14sp3uZuiPVV_3tt0LZk5O7TXtbC7es2t3j0WHL5w-Yhj=
+B5FUMqhcvVLHZWbsyFFT75rKVOXoUfDwGSio1y_O3S3mtEl__9LH_25Ez8sSKa8-R2YlhYUZ_yf=
+YQCFoXiKI8kC1mgAhLiRD3Ry9ERWy8bdQ9_2FjmSvnk6262EaeXJc2sPG1J2Kl0dVfmoaixCZw~=
+~" style=3D"text-align:center;width:100%;vertical-align:middle;text-decorat=
+ion:none;pointer-events:none;display:inline-block"><table align=3D"center" =
+border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentation" styl=
+e=3D"margin:0 auto"><tbody><tr><td height=3D"24" width=3D"24"><img src=3D"h=
+ttps://tb-static.uber.com/prod/receipts/cdn/receipts-v4/Download_3x.png" he=
+ight=3D"24" width=3D"24" style=3D"-ms-interpolation-mode:bicubic;border:non=
+e;clear:both;display:inline-block;height:24px;outline:none;text-decoration:=
+none;width:24px;vertical-align:middle"></td><td class=3D"disclaimer-buttonT=
+ext" style=3D"padding-left:8px;text-align:center;font-family:UberMoveTextMe=
+dium,Arial,sans-serif;font-weight:500;font-size:14px;line-height:16px;font-=
+size:.875rem;line-height:1rem;color:#000" align=3D"center" valign=3D"middle=
+">Download PDF</td></tr></tbody></table></a></td></tr></tbody></table><div =
+class=3D"divider-wrapper mj-outlook-group-fix"><table border=3D"0" cellpadd=
+ing=3D"0" cellspacing=3D"0" width=3D"100%" style=3D"border:none;border-coll=
+apse:collapse;border-spacing:0;mso-table-lspace:0;mso-table-rspace:0;width:=
+100%"><tbody><tr><td style=3D"padding-top:12px;padding-bottom:12px"><table =
+border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" align=3D"le=
+ft" style=3D"border:none;border-collapse:collapse;border-spacing:0;mso-tabl=
+e-lspace:0;mso-table-rspace:0;table-layout:fixed;width:100%"><tbody><tr><td=
+ class=3D"divider-line" valign=3D"top" align=3D"left" style=3D"font-size:1p=
+x;line-height:1px;background-color:#f3f3f3">&nbsp;</td></tr></tbody></table=
+></td></tr></tbody></table></div><table dir=3D"ltr" class=3D"disclaimers-li=
+st-item" align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" =
+role=3D"presentation" width=3D"100%" style=3D"border:none;border-collapse:c=
+ollapse;border-spacing:0;mso-table-lspace:0;mso-table-rspace:0;width:100%">=
+<tbody><tr><td class=3D"disclaimer-text" width=3D" 100% " style=3D"width:10=
+0%;font-family:UberMoveTextRegular,Arial,sans-serif;font-weight:400;font-si=
+ze:14px;line-height:20px;font-size:.875rem;line-height:1.25rem;color:#4b4b4=
+b;border:none"><a href=3D"https://click.uber.com/f/a/c0rVHugonMxcKjxYJbDvYA=
+~~/AAAAARA~/nk4ph7dioIsE2r5BigELi9oczYYb8KK9_ZTJ39Uc_k_3At3d-rHvhsloNRhRdZi=
+0I0EhsBl2hESLwEigG1T5cW_ThAeVKkMolaf1YDBi21CQHnMk17Jq_B8_lGIS5vmGgTgxrb-mAD=
+E4-m-XBLkwuIMWztP8VCXYPefzsiw69vB-7xbcoTBXbHpwKViwhxQ9">Visit the trip page=
+</a> for more information, including invoices (where available)</td></tr></=
+tbody></table><div class=3D"divider-wrapper mj-outlook-group-fix"><table bo=
+rder=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" style=3D"bord=
+er:none;border-collapse:collapse;border-spacing:0;mso-table-lspace:0;mso-ta=
+ble-rspace:0;width:100%"><tbody><tr><td style=3D"padding-top:12px;padding-b=
+ottom:12px"><table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=
+=3D"100%" align=3D"left" style=3D"border:none;border-collapse:collapse;bord=
+er-spacing:0;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;width=
+:100%"><tbody><tr><td class=3D"divider-line" valign=3D"top" align=3D"left" =
+style=3D"font-size:1px;line-height:1px;background-color:#f3f3f3">&nbsp;</td=
+></tr></tbody></table></td></tr></tbody></table></div><table dir=3D"ltr" cl=
+ass=3D"disclaimers-list-item" align=3D"center" border=3D"0" cellpadding=3D"=
+0" cellspacing=3D"0" role=3D"presentation" width=3D"100%" style=3D"border:n=
+one;border-collapse:collapse;border-spacing:0;mso-table-lspace:0;mso-table-=
+rspace:0;width:100%"><tbody><tr><td class=3D"disclaimer-text" width=3D" 100=
+% " style=3D"width:100%;font-family:UberMoveTextRegular,Arial,sans-serif;fo=
+nt-weight:400;font-size:14px;line-height:20px;font-size:.875rem;line-height=
+:1.25rem;color:#4b4b4b;border:none">The total of =E2=82=B9543.65 has a GST =
+of =E2=82=B942.70 included.</td></tr></tbody></table><div class=3D"divider-=
+wrapper mj-outlook-group-fix"><table border=3D"0" cellpadding=3D"0" cellspa=
+cing=3D"0" width=3D"100%" style=3D"border:none;border-collapse:collapse;bor=
+der-spacing:0;mso-table-lspace:0;mso-table-rspace:0;width:100%"><tbody><tr>=
+<td style=3D"padding-top:12px;padding-bottom:12px"><table border=3D"0" cell=
+padding=3D"0" cellspacing=3D"0" width=3D"100%" align=3D"left" style=3D"bord=
+er:none;border-collapse:collapse;border-spacing:0;mso-table-lspace:0;mso-ta=
+ble-rspace:0;table-layout:fixed;width:100%"><tbody><tr><td class=3D"divider=
+-line" valign=3D"top" align=3D"left" style=3D"font-size:1px;line-height:1px=
+;background-color:#f3f3f3">&nbsp;</td></tr></tbody></table></td></tr></tbod=
+y></table></div><table dir=3D"ltr" class=3D"disclaimers-list-item" align=3D=
+"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentat=
+ion" width=3D"100%" style=3D"border:none;border-collapse:collapse;border-sp=
+acing:0;mso-table-lspace:0;mso-table-rspace:0;width:100%"><tbody><tr><td cl=
+ass=3D"disclaimer-text" width=3D" 100% " style=3D"width:100%;font-family:Ub=
+erMoveTextRegular,Arial,sans-serif;font-weight:400;font-size:14px;line-heig=
+ht:20px;font-size:.875rem;line-height:1.25rem;color:#4b4b4b;border:none">Fa=
+res are inclusive of GST. Please download the tax invoice from the trip det=
+ail page for a full tax breakdown.</td></tr></tbody></table><div class=3D"d=
+ivider-wrapper mj-outlook-group-fix"><table border=3D"0" cellpadding=3D"0" =
+cellspacing=3D"0" width=3D"100%" style=3D"border:none;border-collapse:colla=
+pse;border-spacing:0;mso-table-lspace:0;mso-table-rspace:0;width:100%"><tbo=
+dy><tr><td style=3D"padding-top:12px;padding-bottom:12px"><table border=3D"=
+0" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" align=3D"left" style=
+=3D"border:none;border-collapse:collapse;border-spacing:0;mso-table-lspace:=
+0;mso-table-rspace:0;table-layout:fixed;width:100%"><tbody><tr><td class=3D=
+"divider-line" valign=3D"top" align=3D"left" style=3D"font-size:1px;line-he=
+ight:1px;background-color:#f3f3f3">&nbsp;</td></tr></tbody></table></td></t=
+r></tbody></table></div></div><div class=3D"disclaimers-wrapper mj-outlook-=
+group-fix"></div><table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" st=
+yle=3D"border:none;border-collapse:collapse;border-spacing:0;mso-table-lspa=
+ce:0;mso-table-rspace:0;width:100%;display:table"><tr><td style=3D"font-fam=
+ily:ubermovebold,Arial,sans-serif;font-size:1.5rem;font-weight:700;line-hei=
+ght:2rem;padding:20px 0 8px">Trip details</td></tr><tr><td><table dir=3D"lt=
+r" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" style=3D=
+"border:none;border-collapse:collapse;border-spacing:0;mso-table-lspace:0;m=
+so-table-rspace:0;table-layout:auto;width:100%"><tr><td width=3D"56" style=
+=3D"text-align:left;padding-right:16px;line-height:0" valign=3D"top"><img s=
+rc=3D"https://tb-static.uber.com/prod/receipts/cdn/receipts-v4/uber_rides.p=
+ng" width=3D"56" height=3D"56" style=3D"-ms-interpolation-mode:bicubic;clea=
+r:both;vertical-align:middle;display:inline-block;width:56px;height:56px;ou=
+tline:none;text-decoration:none;display:inline-block;padding:0;max-width:10=
+0%"></td><td class=3D"vehicle-detail-col" valign=3D"top" height=3D"54px" st=
+yle=3D"border-bottom:1px solid #f3f3f3;padding-top:12px"><table border=3D"0=
+" cellpadding=3D"0" cellspacing=3D"0" width=3D"initial" style=3D"border:non=
+e;border-collapse:collapse;border-spacing:0;mso-table-lspace:0;mso-table-rs=
+pace:0;table-layout:auto"><tr><td class=3D"vehicle-detail-label" data-testi=
+d=3D"vehicle_type" style=3D"font-family:UberMoveTextMedium,Arial,sans-serif=
+;font-size:1rem;line-height:1.25rem">Uber Go</td></tr><tr><td class=3D"vehi=
+cle-detail-desc" data-testid=3D"distance_duration" style=3D"color:#5e5e5e;f=
+ont-size:.875rem;line-height:1.25rem">15.30 kilometres, 38 minutes</td></tr=
+></table></td><td class=3D"vehicle-detail-col" valign=3D"top" height=3D"54p=
+x" align=3D"right" style=3D"border-bottom:1px solid #f3f3f3;padding-top:12p=
+x"><table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"initial=
+" style=3D"border:none;border-collapse:collapse;border-spacing:0;mso-table-=
+lspace:0;mso-table-rspace:0;table-layout:auto;text-align:right"><tr><td cla=
+ss=3D"vehicle-detail-label" style=3D"font-family:UberMoveTextMedium,Arial,s=
+ans-serif;font-size:1rem;line-height:1.25rem">License Plate:</td></tr><tr><=
+td class=3D"vehicle-detail-desc" style=3D"color:#5e5e5e;font-size:.875rem;l=
+ine-height:1.25rem">TN13AE5218</td></tr></table></td></tr><tr><td style=3D"=
+padding-top:16px"></td></tr></table></td></tr><tr><td><table class=3D"deskt=
+op-content" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" style=3D"borde=
+r:none;border-collapse:collapse;border-spacing:0;mso-table-lspace:0;mso-tab=
+le-rspace:0;width:100%;display:table;padding-bottom:16px"><tr><td class=3D"=
+desktop-content" valign=3D"top" style=3D"border-right:16px solid transparen=
+t;padding-right:16px;width:50%"><table class=3D"hidden" border=3D"0" cellpa=
+dding=3D"0" cellspacing=3D"0" width=3D"100%" style=3D"border:none;border-co=
+llapse:collapse;border-spacing:0;mso-table-lspace:0;mso-table-rspace:0;tabl=
+e-layout:auto;width:100%"><tr><td style=3D"padding-top:12px"></td></tr><tr>=
+<td class=3D"hidden" valign=3D"top" width=3D"8" height=3D"18" style=3D"widt=
+h:8px;height:18px;padding-left:16px"><img width=3D"8" height=3D"18" src=3D"=
+https://tb-static.uber.com/prod/receipts/cdn/receipts-v4/Pickup-1.png" bord=
+er=3D"0" style=3D"-ms-interpolation-mode:bicubic;clear:both;display:block;m=
+ax-width:100%;outline:none;text-decoration:none;width:8px;height:18px"></td=
+><td class=3D"pickup-icon-2 hidden" width=3D"2" style=3D"width:2px;backgrou=
+nd-color:#000" valign=3D"top"><img class=3D"hidden" src=3D"https://tb-stati=
+c.uber.com/prod/receipts/cdn/receipts-v4/Pickup-2.png" width=3D"2" height=
+=3D"18" border=3D"0" style=3D"-ms-interpolation-mode:bicubic;clear:both;dis=
+play:block;max-width:100%;outline:none;text-decoration:none;width:2px;heigh=
+t:18px;background-color:#fff"></td><td class=3D"hidden" valign=3D"top" widt=
+h=3D"8" height=3D"18" style=3D"width:8px;height:18px"><img src=3D"https://t=
+b-static.uber.com/prod/receipts/cdn/receipts-v4/Pickup-3.png" width=3D"8" h=
+eight=3D"18" border=3D"0" style=3D"-ms-interpolation-mode:bicubic;clear:bot=
+h;display:block;max-width:100%;outline:none;text-decoration:none;width:8px;=
+height:18px"></td><td class=3D"hidden" valign=3D"top" style=3D"padding-bott=
+om:29px;padding-left:24px;text-align:left"><table class=3D"hidden" border=
+=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" align=3D"left" st=
+yle=3D"border:none;border-collapse:collapse;border-spacing:0;mso-table-lspa=
+ce:0;mso-table-rspace:0;width:100%;margin-top:-5px"><tr><td class=3D"addres=
+s-point-label" data-testid=3D"address_point_0_time" valign=3D"top" align=3D=
+"left" style=3D"color:#000;font-size:1rem;line-height:1.25rem">12:09 am</td=
+></tr><tr><td class=3D"address-point-desc" data-testid=3D"address_point_0_a=
+ddress" style=3D"color:#5e5e5e;font-size:.875rem;line-height:1.25rem">Meena=
+mbakkam, Chennai, Tamil Nadu 600016, India</td></tr></table></td></tr><tr><=
+td class=3D"hidden" width=3D"8" height=3D"18" style=3D"width:8px;height:18p=
+x;padding-left:16px" valign=3D"top"><img src=3D"https://tb-static.uber.com/=
+prod/receipts/cdn/receipts-v4/Dropoff-1.png" width=3D"8" height=3D"18" bord=
+er=3D"0" style=3D"-ms-interpolation-mode:bicubic;clear:both;display:block;h=
+eight:16px;max-width:100%;outline:none;text-decoration:none;width:8px;heigh=
+t:18px"></td><td class=3D"dropoff-icon-2 hidden" width=3D"2" style=3D"width=
+:2px;background-color:#fff" valign=3D"top"><img class=3D"hidden" src=3D"htt=
+ps://tb-static.uber.com/prod/receipts/cdn/receipts-v4/Dropoff-2.png" width=
+=3D"2" height=3D"18" border=3D"0" style=3D"-ms-interpolation-mode:bicubic;c=
+lear:both;display:block;height:18px;max-width:100%;outline:none;text-decora=
+tion:none;width:2px"></td><td class=3D"hidden" width=3D"8" height=3D"18" st=
+yle=3D"width:8px;height:16px" valign=3D"top"><img src=3D"https://tb-static.=
+uber.com/prod/receipts/cdn/receipts-v4/Dropoff-3.png" border=3D"0" width=3D=
+"8" height=3D"18" style=3D"-ms-interpolation-mode:bicubic;clear:both;displa=
+y:block;height:16px;max-width:100%;outline:none;text-decoration:none;width:=
+8px;height:18px"></td><td class=3D"hidden" valign=3D"top" style=3D"padding-=
+bottom:12px;padding-left:24px;text-align:left"><table class=3D"hidden" bord=
+er=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" align=3D"left" =
+style=3D"border:none;border-collapse:collapse;border-spacing:0;mso-table-ls=
+pace:0;mso-table-rspace:0;width:100%;margin-top:-5px"><tr><td class=3D"addr=
+ess-point-label" data-testid=3D"address_point_1_time" valign=3D"top" align=
+=3D"left" style=3D"color:#000;font-size:1rem;line-height:1.25rem">12:47 am<=
+/td></tr><tr><td class=3D"address-point-desc" data-testid=3D"address_point_=
+1_address" style=3D"color:#5e5e5e;font-size:.875rem;line-height:1.25rem">Vi=
+jaylakshmi avenue, 72B, 2nd Cross St, Keshavardhini Nagar, Periya Kolathuva=
+ncheri, Iyyappanthangal, Chennai, Tamil Nadu 600122, India</td></tr></table=
+></td></tr><tr><td style=3D"padding-top:0"></td></tr></table></td><td class=
+=3D"desktop-content" valign=3D"top" style=3D"width:50%"><img width=3D"312" =
+height=3D"auto" style=3D"border-radius:12px;-ms-interpolation-mode:bicubic;=
+clear:both;display:block;height:auto;max-height:358px;max-width:312px;outli=
+ne:none;text-decoration:none;width:100%" src=3D"https://static-maps.uber.co=
+m/map=3Fwidth=3D312&height=3D358&marker=3Dlat%3A12.98027%24lng%3A80.16307%2=
+4icon%3Ahttps%3A%2F%2Fd1a3f4spazzrp4.cloudfront.net%2Freceipt-new%2Forigin%=
+402x.png&marker=3Dlat%3A13.0281%24lng%3A80.13215%24icon%3Ahttps%3A%2F%2Fd1a=
+3f4spazzrp4.cloudfront.net%2Freceipt-new%2Fdestination%402x.png&polyline=3D=
+color%3A0xFF000000%24width%3A4%24enc%3AuefnAczghNkA_BoBCrBm%40bK%7ESgGuMgDg=
+OcUme%40ct%40mhAgRcc%40_e%40co%40kFnBkMqDi%40fDqFe%40aBv%40qE%5DqDlA%7DEHoR=
+tJsExEsSxc%40_MzHgDpKkpAnpCu%40xCTbOeKhWLbg%40qGr%7B%40%7BAfHfNhAhm%40lP&so=
+urce=3D769a605b_1c9b_3da4_a486_ccc264a18174&signature=3Dl_EjXfHxhEZegXdNeYD=
+iHB7A9SI=3D"></td></tr></table><table class=3D"mobile-content" border=3D"0"=
+ cellpadding=3D"0" cellspacing=3D"16" style=3D"border:none;border-collapse:=
+collapse;border-spacing:0;mso-table-lspace:0;mso-table-rspace:0;width:100%;=
+display:none;padding-top:12px"><tr><td class=3D"mobile-content" style=3D"wi=
+dth:100%;display:none"><table class=3D"hidden" border=3D"0" cellpadding=3D"=
+0" cellspacing=3D"0" width=3D"100%" style=3D"border:none;border-collapse:co=
+llapse;border-spacing:0;mso-table-lspace:0;mso-table-rspace:0;table-layout:=
+auto;width:100%"><tr><td style=3D"padding-top:12px"></td></tr><tr><td class=
+=3D"hidden" valign=3D"top" width=3D"8" height=3D"18" style=3D"width:8px;hei=
+ght:18px;padding-left:16px"><img width=3D"8" height=3D"18" src=3D"https://t=
+b-static.uber.com/prod/receipts/cdn/receipts-v4/Pickup-1.png" border=3D"0" =
+style=3D"-ms-interpolation-mode:bicubic;clear:both;display:block;max-width:=
+100%;outline:none;text-decoration:none;width:8px;height:18px"></td><td clas=
+s=3D"pickup-icon-2 hidden" width=3D"2" style=3D"width:2px;background-color:=
+#000" valign=3D"top"><img class=3D"hidden" src=3D"https://tb-static.uber.co=
+m/prod/receipts/cdn/receipts-v4/Pickup-2.png" width=3D"2" height=3D"18" bor=
+der=3D"0" style=3D"-ms-interpolation-mode:bicubic;clear:both;display:block;=
+max-width:100%;outline:none;text-decoration:none;width:2px;height:18px;back=
+ground-color:#fff"></td><td class=3D"hidden" valign=3D"top" width=3D"8" hei=
+ght=3D"18" style=3D"width:8px;height:18px"><img src=3D"https://tb-static.ub=
+er.com/prod/receipts/cdn/receipts-v4/Pickup-3.png" width=3D"8" height=3D"18=
+" border=3D"0" style=3D"-ms-interpolation-mode:bicubic;clear:both;display:b=
+lock;max-width:100%;outline:none;text-decoration:none;width:8px;height:18px=
+"></td><td class=3D"hidden" valign=3D"top" style=3D"padding-bottom:29px;pad=
+ding-left:24px;text-align:left"><table class=3D"hidden" border=3D"0" cellpa=
+dding=3D"0" cellspacing=3D"0" width=3D"100%" align=3D"left" style=3D"border=
+:none;border-collapse:collapse;border-spacing:0;mso-table-lspace:0;mso-tabl=
+e-rspace:0;width:100%;margin-top:-5px"><tr><td class=3D"address-point-label=
+" data-testid=3D"address_point_0_time" valign=3D"top" align=3D"left" style=
+=3D"color:#000;font-size:1rem;line-height:1.25rem">12:09 am</td></tr><tr><t=
+d class=3D"address-point-desc" data-testid=3D"address_point_0_address" styl=
+e=3D"color:#5e5e5e;font-size:.875rem;line-height:1.25rem">Meenambakkam, Che=
+nnai, Tamil Nadu 600016, India</td></tr></table></td></tr><tr><td class=3D"=
+hidden" width=3D"8" height=3D"18" style=3D"width:8px;height:18px;padding-le=
+ft:16px" valign=3D"top"><img src=3D"https://tb-static.uber.com/prod/receipt=
+s/cdn/receipts-v4/Dropoff-1.png" width=3D"8" height=3D"18" border=3D"0" sty=
+le=3D"-ms-interpolation-mode:bicubic;clear:both;display:block;height:16px;m=
+ax-width:100%;outline:none;text-decoration:none;width:8px;height:18px"></td=
+><td class=3D"dropoff-icon-2 hidden" width=3D"2" style=3D"width:2px;backgro=
+und-color:#fff" valign=3D"top"><img class=3D"hidden" src=3D"https://tb-stat=
+ic.uber.com/prod/receipts/cdn/receipts-v4/Dropoff-2.png" width=3D"2" height=
+=3D"18" border=3D"0" style=3D"-ms-interpolation-mode:bicubic;clear:both;dis=
+play:block;height:18px;max-width:100%;outline:none;text-decoration:none;wid=
+th:2px"></td><td class=3D"hidden" width=3D"8" height=3D"18" style=3D"width:=
+8px;height:16px" valign=3D"top"><img src=3D"https://tb-static.uber.com/prod=
+/receipts/cdn/receipts-v4/Dropoff-3.png" border=3D"0" width=3D"8" height=3D=
+"18" style=3D"-ms-interpolation-mode:bicubic;clear:both;display:block;heigh=
+t:16px;max-width:100%;outline:none;text-decoration:none;width:8px;height:18=
+px"></td><td class=3D"hidden" valign=3D"top" style=3D"padding-bottom:12px;p=
+adding-left:24px;text-align:left"><table class=3D"hidden" border=3D"0" cell=
+padding=3D"0" cellspacing=3D"0" width=3D"100%" align=3D"left" style=3D"bord=
+er:none;border-collapse:collapse;border-spacing:0;mso-table-lspace:0;mso-ta=
+ble-rspace:0;width:100%;margin-top:-5px"><tr><td class=3D"address-point-lab=
+el" data-testid=3D"address_point_1_time" valign=3D"top" align=3D"left" styl=
+e=3D"color:#000;font-size:1rem;line-height:1.25rem">12:47 am</td></tr><tr><=
+td class=3D"address-point-desc" data-testid=3D"address_point_1_address" sty=
+le=3D"color:#5e5e5e;font-size:.875rem;line-height:1.25rem">Vijaylakshmi ave=
+nue, 72B, 2nd Cross St, Keshavardhini Nagar, Periya Kolathuvancheri, Iyyapp=
+anthangal, Chennai, Tamil Nadu 600122, India</td></tr></table></td></tr><tr=
+><td style=3D"padding-top:0"></td></tr></table></td></tr><tr><td class=3D"m=
+obile-content" style=3D"width:100%;display:none"><img height=3D"auto" width=
+=3D"100%" border=3D"0" style=3D"-ms-interpolation-mode:bicubic;clear:both;d=
+isplay:block;height:auto;max-width:100%;outline:none;text-decoration:none;w=
+idth:100%;border-radius:12px" src=3D"https://static-maps.uber.com/map=3Fwid=
+th=3D312&height=3D358&marker=3Dlat%3A12.98027%24lng%3A80.16307%24icon%3Ahtt=
+ps%3A%2F%2Fd1a3f4spazzrp4.cloudfront.net%2Freceipt-new%2Forigin%402x.png&ma=
+rker=3Dlat%3A13.0281%24lng%3A80.13215%24icon%3Ahttps%3A%2F%2Fd1a3f4spazzrp4=
+=2Ecloudfront.net%2Freceipt-new%2Fdestination%402x.png&polyline=3Dcolor%3A0=
+xFF000000%24width%3A4%24enc%3AuefnAczghNkA_BoBCrBm%40bK%7ESgGuMgDgOcUme%40c=
+t%40mhAgRcc%40_e%40co%40kFnBkMqDi%40fDqFe%40aBv%40qE%5DqDlA%7DEHoRtJsExEsSx=
+c%40_MzHgDpKkpAnpCu%40xCTbOeKhWLbg%40qGr%7B%40%7BAfHfNhAhm%40lP&source=3D76=
+9a605b_1c9b_3da4_a486_ccc264a18174&signature=3Dl_EjXfHxhEZegXdNeYDiHB7A9SI=
+=3D"></td></tr></table></td></tr></table><div class=3D"action-panel-wrapper=
+ mj-outlook-group-fix" style=3D"margin-top:16px"><table dir=3D"ltr" class=
+=3D"action-panel" align=3D"center" border=3D"0" cellpadding=3D"0" cellspaci=
+ng=3D"0" role=3D"presentation" width=3D"100%" style=3D"border-collapse:sepa=
+rate;border:2px solid #f3f3f3;border-radius:16px;border-collapse:separate">=
+<tbody><tr><td class=3D"action-panel-content" style=3D"width:100%;padding:1=
+6px"><table align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"=
+0" role=3D"presentation" width=3D"100%"><tbody><tr><td data-testid=3D"drive=
+rInfo_title" class=3D"action-panel-title" style=3D"padding-bottom:16px;font=
+-family:UberMoveBold,Arial,sans-serif;font-weight:700;font-size:20px;line-h=
+eight:28px;font-size:1.25rem;line-height:1.75rem">You rode with DHANASEKAR<=
+/td><td class=3D"action-panel-rating" data-testid=3D"driverInfo_rating" val=
+ign=3D"top" style=3D"padding-bottom:16px;font-family:UberMoveMedium,Arial,s=
+ans-serif;font-weight:500;font-size:16px;line-height:20px;font-size:1rem;li=
+ne-height:1.25rem;width:25px">4.89</td><td style=3D"padding-left:5px" width=
+=3D"20" height=3D"20" valign=3D"top"><img src=3D"https://tb-static.uber.com=
+/prod/receipts/cdn/receipts-v4/rating_email.png" width=3D"20" height=3D"20"=
+ style=3D"height:20px;width:20px;outline:none;text-decoration:none" border=
+=3D"0" alt></td></tr><tr><td class=3D"action-panel-message" colspan=3D"3" s=
+tyle=3D"padding-bottom:24px;font-family:UberMoveTextRegular,Arial,sans-seri=
+f;font-weight:400;font-size:14px;line-height:20px;font-size:.875rem;line-he=
+ight:1.25rem">Say thanks with a rating or tip for the driver.</td></tr><tr>=
+<td class=3D"action-panel-button" colspan=3D"3" style=3D"background:#f3f3f3=
+;background-color:#f3f3f3;border-radius:8px;border-collapse:separate" align=
+=3D"center"><a href=3D"https://click.uber.com/f/a/c0rVHugonMxcKjxYJbDvYA~~/=
+AAAAARA~/nk4ph7dioIsE2r5BigELi9oczYYb8KK9_ZTJ39Uc_k_3At3d-rHvhsloNRhRdZi0I0=
+EhsBl2hESLwEigG1T5cW_ThAeVKkMolaf1YDBi21CQHnMk17Jq_B8_lGIS5vmGgTgxrb-mADE4-=
+m-XBLkwuIMWztP8VCXYPefzsiw69vB-7xbcoTBXbHpwKViwhxQ9" data-testid=3D"driverI=
+nfo_actionUrl" style=3D"text-align:center;width:100%;vertical-align:middle;=
+text-decoration:none;pointer-events:none;display:inline-block"><table align=
+=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presen=
+tation" style=3D"margin:0 auto"><tbody><tr><td width=3D"20" style=3D"paddin=
+g-left:8px"><img src=3D"https://tb-static.uber.com/prod/receipts/cdn/receip=
+ts-v4/tip-logo-email.png" height=3D"20" width=3D"20" style=3D"-ms-interpola=
+tion-mode:bicubic;border:none;clear:both;display:inline-block;height:20px;m=
+ax-width:100%;outline:none;text-decoration:none;width:20px;vertical-align:m=
+iddle"></td><td style=3D"padding-left:8px;padding-bottom:10px;padding-top:1=
+0px;text-align:center;font-family:UberMoveTextMedium,Arial,sans-serif;font-=
+weight:500;font-size:14px;line-height:16px;font-size:.875rem;line-height:1r=
+em" align=3D"center" valign=3D"middle">Rate or tip</td></tr></tbody></table=
+></a></td></tr></tbody></table></td></tr></tbody></table></div><div class=
+=3D"panel-wrapper mj-outlook-group-fix"><table class=3D"panel-content" alig=
+n=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"prese=
+ntation" width=3D"100%"><tbody><tr><td class=3D"panel-title" style=3D"width=
+:100%;font-family:UberMoveBold,Arial,sans-serif;font-weight:700;font-size:2=
+4px;line-height:32px;font-size:1.5rem;line-height:2rem;padding-top:16px;pad=
+ding-bottom:16px"></td></tr><tr><td class=3D"panel-content" style=3D"width:=
+100%"><div class=3D"additional-info-wrapper mj-outlook-group-fix" dir=3D"lt=
+r"><table class=3D"additional-info-item" align=3D"center" border=3D"0" cell=
+padding=3D"0" cellspacing=3D"0" role=3D"presentation" width=3D"100%"><tbody=
+><tr><td class=3D"additional-info-label" style=3D"width:60%;font-family:Ube=
+rMoveTextMedium,Arial,sans-serif;font-weight:500;font-size:16px;line-height=
+:20px;font-size:1rem;line-height:1.25rem;padding-right:16px">Want to review=
+ your trip history=3F</td><td class=3D"additional-info-value" style=3D"widt=
+h:40%;font-family:UberMoveTextMedium,Arial,sans-serif;font-weight:500;font-=
+size:16px;line-height:20px;font-size:1rem;line-height:1.25rem;text-align:ri=
+ght"><a href=3D"https://click.uber.com/f/a/McF5AZV7HR7nIMvTEEzing~~/AAAAARA=
+~/QzU1805XngGPxvt12TFd4VCJQKQZZszdVojDhBOcBB_-rs2Moa1uHH-CVE6xQR-uIaEvWwU6m=
+MBxrJnBs-eWXcmRVf-KY-FWe4OyYKFj2j4970QNaHw55QL-3l_mV4g_">My trips</a></td><=
+/tr></tbody></table><div class=3D"divider-wrapper mj-outlook-group-fix"><ta=
+ble border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" style=
+=3D"border:none;border-collapse:collapse;border-spacing:0;mso-table-lspace:=
+0;mso-table-rspace:0;width:100%"><tbody><tr><td style=3D"padding-top:16px;p=
+adding-bottom:16px"><table border=3D"0" cellpadding=3D"0" cellspacing=3D"0"=
+ width=3D"100%" align=3D"left" style=3D"border:none;border-collapse:collaps=
+e;border-spacing:0;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed=
+;width:100%"><tbody><tr><td class=3D"divider-line" valign=3D"top" align=3D"=
+left" style=3D"font-size:1px;line-height:1px;background-color:#f3f3f3">&nbs=
+p;</td></tr></tbody></table></td></tr></tbody></table></div></div></td></tr=
+></tbody></table></div><div class=3D"action-panel-wrapper mj-outlook-group-=
+fix" style=3D"margin-top:16px"><table dir=3D"ltr" align=3D"center" border=
+=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentation" width=3D"1=
+00%"><tbody><tr><td class=3D"action-panel-content" valign=3D"top" align=3D"=
+top" style=3D"padding-right:16px;width:50%"><table class=3D"action-panel" a=
+lign=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"pr=
+esentation" width=3D"100%" style=3D"border-collapse:separate;border:2px sol=
+id #f3f3f3;border-radius:16px;padding:16px"><tbody><tr><td class=3D"action-=
+panel-title" style=3D"padding-bottom:12px;font-family:UberMoveBold,Arial,sa=
+ns-serif;font-weight:700;font-size:20px;line-height:28px;font-size:1.25rem;=
+line-height:1.75rem">Need help=3F</td></tr><tr><td class=3D"action-panel-me=
+ssage" style=3D"padding-bottom:24px;font-family:UberMoveTextRegular,Arial,s=
+ans-serif;font-weight:400;font-size:14px;line-height:20px;font-size:.875rem=
+;line-height:1.25rem">Our support team is happy to help with any concern yo=
+u might have.</td></tr><tr><td class=3D"action-panel-button" style=3D"backg=
+round:#f3f3f3;background-color:#f3f3f3;border-radius:8px;border-collapse:se=
+parate" align=3D"center"><a href=3D"https://click.uber.com/f/a/sjUnpSBIFI3a=
+NBfJMRM36g~~/AAAAARA~/JB9hMOCkztuk2xq05IZGWzap0Y47mp3j0y7OqLZRVlHlT58GTcKOT=
+DeBv6djNgCGqOwY7T2cYN5ajQGF91W3-LgtI6lfWzSWsLvspKnrqywPRbovYMSyT9KpvJUPYPny=
+" style=3D"text-align:center;width:100%;vertical-align:middle;text-decorati=
+on:none;pointer-events:none;display:inline-block"><table align=3D"center" b=
+order=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentation" style=
+=3D"margin:0 auto"><tbody><tr><td width=3D"20" style=3D"padding-left:8px"><=
+img src=3D"https://tb-static.uber.com/prod/receipts/cdn/receipts-v4/icon_su=
+pport_email.png" height=3D"20" width=3D"20" style=3D"-ms-interpolation-mode=
+:bicubic;border:none;clear:both;display:inline-block;height:20px;max-width:=
+100%;outline:none;text-decoration:none;width:20px;vertical-align:middle"></=
+td><td style=3D"padding-left:8px;padding-bottom:10px;padding-top:10px;text-=
+align:center;font-family:UberMoveTextMedium,Arial,sans-serif;font-weight:50=
+0;font-size:14px;line-height:16px;font-size:.875rem;line-height:1rem" align=
+=3D"center" valign=3D"middle">Contact Support</td></tr></tbody></table></a>=
+</td></tr></tbody></table></td><td class=3D"action-panel-content" valign=3D=
+"top" align=3D"top" style=3D"padding-right:0;width:50%"><table class=3D"act=
+ion-panel" align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0=
+" role=3D"presentation" width=3D"100%" style=3D"border-collapse:separate;bo=
+rder:2px solid #f3f3f3;border-radius:16px;padding:16px"><tbody><tr><td clas=
+s=3D"action-panel-title" style=3D"padding-bottom:12px;font-family:UberMoveB=
+old,Arial,sans-serif;font-weight:700;font-size:20px;line-height:28px;font-s=
+ize:1.25rem;line-height:1.75rem">Forgotten something=3F</td></tr><tr><td cl=
+ass=3D"action-panel-message" style=3D"padding-bottom:24px;font-family:UberM=
+oveTextRegular,Arial,sans-serif;font-weight:400;font-size:14px;line-height:=
+20px;font-size:.875rem;line-height:1.25rem">If you lost an item in the car,=
+ please report it using the link below.</td></tr><tr><td class=3D"action-pa=
+nel-button" style=3D"background:#f3f3f3;background-color:#f3f3f3;border-rad=
+ius:8px;border-collapse:separate" align=3D"center"><a href=3D"https://click=
+=2Euber.com/f/a/ZHhFSfBv1Hw8V0trVsN09g~~/AAAAARA~/Ig8ocrKyfYJjsD_yY_qLMSiCG=
+qfpnBGJR6cIea31uhH9YnqQqzQ9IOAW7UWHuzHoN5bFo5tNbwQ0njl3on5wBTp1mHdWHv6pgQB9=
+d6p2fQ8h-L5FnWaHsMCujmihXeAhuCfN853Ixk0K8fsrphnitBgkRa_dpXOem52EdjP6Y8Y~" s=
+tyle=3D"text-align:center;width:100%;vertical-align:middle;text-decoration:=
+none;pointer-events:none;display:inline-block"><table align=3D"center" bord=
+er=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentation" style=3D=
+"margin:0 auto"><tbody><tr><td width=3D"20" style=3D"padding-left:8px"><img=
+ src=3D"https://tb-static.uber.com/prod/receipts/cdn/receipts-v4/icon_repor=
+t_email.png" height=3D"20" width=3D"20" style=3D"-ms-interpolation-mode:bic=
+ubic;border:none;clear:both;display:inline-block;height:20px;max-width:100%=
+;outline:none;text-decoration:none;width:20px;vertical-align:middle"></td><=
+td style=3D"padding-left:8px;padding-bottom:10px;padding-top:10px;text-alig=
+n:center;font-family:UberMoveTextMedium,Arial,sans-serif;font-weight:500;fo=
+nt-size:14px;line-height:16px;font-size:.875rem;line-height:1rem" align=3D"=
+center" valign=3D"middle">Report lost item</td></tr></tbody></table></a></t=
+d></tr></tbody></table></td></tr></tbody></table></div></td></tr></tbody></=
+table></div><div class=3D"footer mj-outlook-group-fix" style=3D"background:=
+#000;background-color:#000"><table class=3D"footer-table-row" align=3D"cent=
+er" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentation" =
+style=3D"background:#000;background-color:#000;width:100%"><tbody><tr><td d=
+ir=3D"ltr" class=3D"footer-table-cell"><table class=3D"mobile-table" align=
+=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presen=
+tation" style=3D"width:100%;display:none"><tbody><tr><td class=3D"mobile-co=
+ntent" valign=3D"top" align=3D"left" style=3D"display:none;white-space:nowr=
+ap;text-align:left;padding-top:32px;padding-bottom:16px"><a style=3D"color:=
+#fff;text-decoration:none" href=3D"https://click.uber.com/f/a/xT_b7o557JHCx=
+VCMyP5wTg~~/AAAAARA~/Nx4VjR90hHEXYJdayeQ_ssOpwUlPgSTCA17flZhKhMgwkK60D042sX=
+17h8h9r59u6BDJ0BDDCxzptCWK6pSq0ty9Z2zccJoCV9j8P9dq9vwdWID8gpHyXUwOzL03Cc8U"=
+>My account</a></td></tr><tr><td class=3D"mobile-content divider-line" styl=
+e=3D"display:none;font-size:1px;line-height:1px;background-color:#292929">&=
+nbsp;</td></tr><tr><td class=3D"mobile-content" valign=3D"top" align=3D"lef=
+t" style=3D"display:none;white-space:nowrap;text-align:left;padding-top:16p=
+x;padding-bottom:16px"><a style=3D"color:#fff;text-decoration:none" href=3D=
+"https://click.uber.com/f/a/jb6OwVkTcvHzqU2bsAmAgw~~/AAAAARA~/gLnC1dODSmpIt=
+TSHj5-GFWn61I82w8CPzIyyAVgKkQJ-IsD0UeYQBD8RdyiDAtolaL3G9GzgGeeE6o5-f5RNQjmC=
+rxlVIfYSUOYhh2HRSHPubrowZXG5ToaRqquiR1YJZ7EfBWMMU8ak0PsdnGtAEQ~~">Privacy P=
+olicy</a></td></tr><tr><td class=3D"mobile-content divider-line" style=3D"d=
+isplay:none;font-size:1px;line-height:1px;background-color:#292929">&nbsp;<=
+/td></tr><tr><td class=3D"mobile-content" valign=3D"top" align=3D"left" sty=
+le=3D"display:none;white-space:nowrap;text-align:left;padding-top:16px;padd=
+ing-bottom:16px"><a style=3D"color:#fff;text-decoration:none" href=3D"https=
+://click.uber.com/f/a/JYqnsdQEyXvyEINuUY8d2Q~~/AAAAARA~/4Zzi0LTLwzSCVnOOo3k=
+mGOYl-4Yzi6VlZxSaYuoiPCV-FfV2uJEYFYSqO4ylkaCaFb-jcwSvt2vP9fAGnDiBPGkDxaJs-1=
+yTeM4oQjwbgg4gEpMMfceCQIdEKWA69j7y">Terms and Conditions</a></td></tr><tr><=
+td class=3D"mobile-content divider-line" style=3D"display:none;font-size:1p=
+x;line-height:1px;background-color:#292929">&nbsp;</td></tr><tr><td class=
+=3D"mobile-content" valign=3D"top" align=3D"left" style=3D"display:none;whi=
+te-space:nowrap;text-align:left;padding-top:16px;padding-bottom:16px"><tabl=
+e class=3D"mobile-table" align=3D"left" border=3D"0" cellpadding=3D"0" cell=
+spacing=3D"0" role=3D"presentation" style=3D"display:none"><tbody><tr><td s=
+tyle=3D"padding-right:8px"><a href=3D"https://click.uber.com/f/a/f38DwE1QkW=
+yxZFKGrFcDpQ~~/AAAAARA~/-REhoLLoE0PqzZqfv7IBMGyShs6_Yy4NHjg3_Ng-OQphLbKddGG=
+RYwYtlAdePKKZw5HUi1zOqB1Rxq5D0Wlt-aLfbuRJnU-2T33AzA6PJ-PmOiRyW9Zhx6NwV8Hv5i=
+Kj" style=3D"pointer-events:none"><img src=3D"https://tb-static.uber.com/pr=
+od/receipts/cdn/receipts-v4/icon_social_facebook.png" width=3D"30" height=
+=3D"30" border=3D"0" style=3D"-ms-interpolation-mode:bicubic;border:none;cl=
+ear:both;display:inline-block;height:30px;max-width:100%;outline:none;text-=
+decoration:none;width:30px"></a></td><td style=3D"padding-right:8px"><a hre=
+f=3D"https://click.uber.com/f/a/oP5yoghGAoGrAEOX28gO4w~~/AAAAARA~/7pJK2tPR2=
+_INcO5c_Br-t8zdC4W-7mt2hfzPV6sXSJdbzjk51dc2d4uHbEmwNce-A6loOh7JnTOKPWSbEkMU=
+N6PsOLW6pq3BHbfC4zyKk3XHL5HptoyAt39rqZCxT9kp" style=3D"pointer-events:none"=
+><img src=3D"https://tb-static.uber.com/prod/receipts/cdn/receipts-v4/icon_=
+social_instagram.png" width=3D"30" height=3D"30" border=3D"0" style=3D"-ms-=
+interpolation-mode:bicubic;border:none;clear:both;display:inline-block;heig=
+ht:30px;max-width:100%;outline:none;text-decoration:none;width:30px"></a></=
+td><td style=3D"padding-right:8px"><a href=3D"https://click.uber.com/f/a/NA=
+mlhvB347viUAnV6dTAlw~~/AAAAARA~/QzU1805XngGPxvt12TFd4WQ3O95iAoVK0iw38leNc-t=
+IrnlM7cPBEWO1mAly6vi0lkdFoMhsgFqiZ6t3PVdWKo6tGI6WO5mkoyFo7zjfUwTqdwh1pP6Kaz=
+l6FKohj7cu" style=3D"pointer-events:none"><img src=3D"https://tb-static.ube=
+r.com/prod/receipts/cdn/receipts-v4/icon_social_youtube.png" width=3D"30" h=
+eight=3D"30" border=3D"0" style=3D"-ms-interpolation-mode:bicubic;border:no=
+ne;clear:both;display:inline-block;height:30px;max-width:100%;outline:none;=
+text-decoration:none;width:30px"></a></td></tr></tbody></table></td></tr></=
+tbody></table></td></tr><tr><td dir=3D"ltr" class=3D"footer-table-cell" sty=
+le=3D"padding-left:64px;padding-right:64px;padding-bottom:32px;padding-top:=
+32px"><table align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D=
+"0" role=3D"presentation" style=3D"width:100%"><tbody><tr><td valign=3D"top=
+" align=3D"left" style=3D"white-space:nowrap;text-align:left"><span data-te=
+stid=3D"company_name_address" class=3D"entity-info" style=3D"font-family:Ub=
+erMoveTextRegular,Arial,sans-serif;font-weight:400;font-size:14px;line-heig=
+ht:20px;font-size:.875rem;line-height:1.25rem;width:200px;white-space:initi=
+al;display:inline-block;color:#a6a6a6">Uber India Systems Private Limited<b=
+r></span></td><td valign=3D"top" align=3D"right" style=3D"text-align:right;=
+white-space:nowrap"><table align=3D"center" border=3D"0" cellpadding=3D"0" =
+cellspacing=3D"0" role=3D"presentation" style=3D"width:100%"><tbody><tr><td=
+ class=3D"desktop-content" valign=3D"top" align=3D"left" style=3D"white-spa=
+ce:nowrap;text-align:right"><a href=3D"https://click.uber.com/f/a/xT_b7o557=
+JHCxVCMyP5wTg~~/AAAAARA~/Nx4VjR90hHEXYJdayeQ_ssOpwUlPgSTCA17flZhKhMgwkK60D0=
+42sX17h8h9r59u6BDJ0BDDCxzptCWK6pSq0ty9Z2zccJoCV9j8P9dq9vwdWID8gpHyXUwOzL03C=
+c8U" style=3D"color:#fff;text-decoration:underline">My account</a></td></tr=
+><tr><td class=3D"desktop-content" valign=3D"top" align=3D"left" style=3D"w=
+hite-space:nowrap;text-align:right;padding-top:16px"><a href=3D"https://cli=
+ck.uber.com/f/a/jb6OwVkTcvHzqU2bsAmAgw~~/AAAAARA~/gLnC1dODSmpItTSHj5-GFWn61=
+I82w8CPzIyyAVgKkQJ-IsD0UeYQBD8RdyiDAtolaL3G9GzgGeeE6o5-f5RNQjmCrxlVIfYSUOYh=
+h2HRSHPubrowZXG5ToaRqquiR1YJZ7EfBWMMU8ak0PsdnGtAEQ~~" style=3D"color:#fff;t=
+ext-decoration:underline">Privacy Policy</a></td></tr><tr><td class=3D"desk=
+top-content" valign=3D"top" align=3D"left" style=3D"white-space:nowrap;text=
+-align:right;padding-top:16px"><a href=3D"https://click.uber.com/f/a/JYqnsd=
+QEyXvyEINuUY8d2Q~~/AAAAARA~/4Zzi0LTLwzSCVnOOo3kmGOYl-4Yzi6VlZxSaYuoiPCV-FfV=
+2uJEYFYSqO4ylkaCaFb-jcwSvt2vP9fAGnDiBPGkDxaJs-1yTeM4oQjwbgg4gEpMMfceCQIdEKW=
+A69j7y" style=3D"color:#fff;text-decoration:underline">Terms and Conditions=
+</a></td></tr></tbody></table></td></tr><tr><td valign=3D"top" align=3D"lef=
+t" style=3D"text-align:left;white-space:nowrap;padding-top:16px"><img src=
+=3D"https://tb-static.uber.com/prod/receipts/cdn/receipts-v4/uber_footer_ic=
+on.png" width=3D"74" height=3D"44"></td><td valign=3D"bottom" align=3D"righ=
+t" style=3D"text-align:right;white-space:nowrap"><table align=3D"right" bor=
+der=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentation"><tbody>=
+<tr><td class=3D"desktop-content" valign=3D"bottom" style=3D"padding-left:8=
+px"><a href=3D"https://click.uber.com/f/a/f38DwE1QkWyxZFKGrFcDpQ~~/AAAAARA~=
+/-REhoLLoE0PqzZqfv7IBMGyShs6_Yy4NHjg3_Ng-OQphLbKddGGRYwYtlAdePKKZw5HUi1zOqB=
+1Rxq5D0Wlt-aLfbuRJnU-2T33AzA6PJ-PmOiRyW9Zhx6NwV8Hv5iKj" style=3D"pointer-ev=
+ents:none"><img src=3D"https://tb-static.uber.com/prod/receipts/cdn/receipt=
+s-v4/icon_social_facebook.png" width=3D"30" height=3D"30" border=3D"0" styl=
+e=3D"-ms-interpolation-mode:bicubic;border:none;clear:both;display:inline-b=
+lock;height:30px;max-width:100%;outline:none;text-decoration:none;width:30p=
+x"></a></td><td class=3D"desktop-content" valign=3D"bottom" style=3D"paddin=
+g-left:8px"><a href=3D"https://click.uber.com/f/a/oP5yoghGAoGrAEOX28gO4w~~/=
+AAAAARA~/7pJK2tPR2_INcO5c_Br-t8zdC4W-7mt2hfzPV6sXSJdbzjk51dc2d4uHbEmwNce-A6=
+loOh7JnTOKPWSbEkMUN6PsOLW6pq3BHbfC4zyKk3XHL5HptoyAt39rqZCxT9kp" style=3D"po=
+inter-events:none"><img src=3D"https://tb-static.uber.com/prod/receipts/cdn=
+/receipts-v4/icon_social_instagram.png" width=3D"30" height=3D"30" border=
+=3D"0" style=3D"-ms-interpolation-mode:bicubic;border:none;clear:both;displ=
+ay:inline-block;height:30px;max-width:100%;outline:none;text-decoration:non=
+e;width:30px"></a></td><td class=3D"desktop-content" valign=3D"bottom" styl=
+e=3D"padding-left:8px"><a href=3D"https://click.uber.com/f/a/NAmlhvB347viUA=
+nV6dTAlw~~/AAAAARA~/QzU1805XngGPxvt12TFd4WQ3O95iAoVK0iw38leNc-tIrnlM7cPBEWO=
+1mAly6vi0lkdFoMhsgFqiZ6t3PVdWKo6tGI6WO5mkoyFo7zjfUwTqdwh1pP6Kazl6FKohj7cu" =
+style=3D"pointer-events:none"><img src=3D"https://tb-static.uber.com/prod/r=
+eceipts/cdn/receipts-v4/icon_social_youtube.png" width=3D"30" height=3D"30"=
+ border=3D"0" style=3D"-ms-interpolation-mode:bicubic;border:none;clear:bot=
+h;display:inline-block;height:30px;max-width:100%;outline:none;text-decorat=
+ion:none;width:30px"></a></td></tr></tbody></table></td></tr></tbody></tabl=
+e></td></tr></tbody></table></div></div></td></tr></tbody></table></td><td>=
+</td></tr></table>=0D=0A<img border=3D"0" width=3D"1" height=3D"1" alt=3D""=
+ src=3D"https://click.uber.com/q/m5V9oAg0ZkIda12A_5aVaQ~~/AAAAARA~/YL_eHxEA=
+9PfhCyELvi9Dy-5UF0KDLts6Ei4G1-_wkkZcgGmnJDaMr1quzptsy0UnjrMQtQ6S3bVJ16wwkJ-=
+Y9g~~">=0D=0A</body></html>
+
